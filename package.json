@@ -1,7 +1,7 @@
 {
   "name": "cordova-plugin-wechat",
   "version": "1.0.0",
-  "description": "wechat pay cordova plugin ",
+  "description": "wechat pay cordova plugin",
   "cordova": {
     "id": "cordova-plugin-wechat",
     "platforms": [
@@ -11,17 +11,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/DUKYASHUO/wechat-cordova-plugin.git"
+    "url": "git+https://github.com/rontech/wechat-cordova-plugin.git"
   },
   "keywords": [
     "ecosystem:cordova",
     "cordova-ios",
     "cordova-android"
   ],
-  "author": "duke",
+  "author": "rontech",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/DUKYASHUO/wechat-cordova-plugin/issues"
+    "url": "https://github.com/rontech/wechat-cordova-plugin/issues"
   },
-  "homepage": "https://github.com/DUKYASHUO/wechat-cordova-plugin#readme"
+  "homepage": "https://github.com/rontech/wechat-cordova-plugin#readme"
 }

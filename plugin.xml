@@ -11,18 +11,61 @@
 
     <platform name="ios">
         <config-file parent="/*" target="config.xml">
+            <preference name="APPID" value="$APPID" />
             <feature name="Wechat">
-                <param name="ios-package" value="wechat"/>
+                <param name="ios-package" value="Wechat"/>
+                <param name="onload" value="true" />
             </feature>
         </config-file>
+
+        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+            <array>
+                <string>weixin</string>
+                <string>wechat</string>
+            </array>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+            </dict>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleURLName</key>
+                    <string>weixin</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>$APPID</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+
+        <!-- Plugin source code -->
         <source-file src="src/ios/Wechat.m"/>
+
+        <!-- Wechat Official -->
+        <header-file src="src/ios/libs/OpenSDK1.8.0/WXApi.h" />
+        <header-file src="src/ios/libs/OpenSDK1.8.0/WXApiObject.h" />
+        <source-file src="src/ios/libs/OpenSDK1.8.0/libWeChatSDK.a" framework="true" />
+
+        <!-- Other required frameworks -->
+        <framework src="libz.tbd" />
+        <framework src="libsqlite3.0.tbd" />
+        <framework src="CoreTelephony.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="Security.framework" />
+        <framework src="CFNetwork.framework" />
+        <framework src="libstdc++.6.tbd" />
     </platform>
 
     <platform name="android">
         <config-file parent="/*" target="res/xml/config.xml">
-
             <preference name="APPID" value="$APPID" />
-
             <feature name="Wechat">
                 <param name="android-package" value="com.taiemao.Wechat"/>
             </feature>
