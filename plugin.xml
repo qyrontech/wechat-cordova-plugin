@@ -1,0 +1,102 @@
+<?xml version='1.0' encoding='utf-8'?>
+<plugin id="cordova-plugin-wechat" version="1.0.0" xmlns="http://apache.org/cordova/ns/plugins/1.0"
+        xmlns:android="http://schemas.android.com/apk/res/android">
+    <name>cordova-plugin-wechat</name>
+
+    <preference name="APPID" />
+
+    <js-module name="Wechat" src="www/Wechat.js">
+        <clobbers target="cordova.plugins.Wechat"/>
+    </js-module>
+
+    <platform name="ios">
+        <config-file parent="/*" target="config.xml">
+            <preference name="APPID" value="$APPID" />
+            <feature name="Wechat">
+                <param name="ios-package" value="Wechat"/>
+                <param name="onload" value="true" />
+            </feature>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="LSApplicationQueriesSchemes">
+            <array>
+                <string>weixin</string>
+                <string>wechat</string>
+            </array>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="NSAppTransportSecurity">
+            <dict>
+                <key>NSAllowsArbitraryLoads</key>
+                <true/>
+            </dict>
+        </config-file>
+
+        <config-file target="*-Info.plist" parent="CFBundleURLTypes">
+            <array>
+                <dict>
+                    <key>CFBundleURLName</key>
+                    <string>weixin</string>
+                    <key>CFBundleURLSchemes</key>
+                    <array>
+                        <string>$APPID</string>
+                    </array>
+                </dict>
+            </array>
+        </config-file>
+
+        <!-- Plugin source code -->
+        <source-file src="src/ios/Wechat.m"/>
+
+        <!-- Wechat Official -->
+        <header-file src="src/ios/libs/OpenSDK1.8.0/WXApi.h" />
+        <header-file src="src/ios/libs/OpenSDK1.8.0/WXApiObject.h" />
+        <source-file src="src/ios/libs/OpenSDK1.8.0/libWeChatSDK.a" framework="true" />
+
+        <!-- Other required frameworks -->
+        <framework src="libz.tbd" />
+        <framework src="libsqlite3.0.tbd" />
+        <framework src="CoreTelephony.framework" />
+        <framework src="SystemConfiguration.framework" />
+        <framework src="Security.framework" />
+        <framework src="CFNetwork.framework" />
+        <framework src="libstdc++.6.tbd" />
+    </platform>
+
+    <platform name="android">
+        <config-file parent="/*" target="res/xml/config.xml">
+            <preference name="APPID" value="$APPID" />
+            <feature name="Wechat">
+                <param name="android-package" value="com.taiemao.Wechat"/>
+            </feature>
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/*">
+            <uses-permission android:name="android.permission.INTERNET" />
+            <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+            <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+            <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+            <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+        </config-file>
+
+        <config-file target="AndroidManifest.xml" parent="/manifest/application">
+            <activity
+                    android:name=".wxapi.WXPayEntryActivity"
+                    android:label="@string/launcher_name"
+                    android:exported="true"
+                    android:launchMode="singleTop">
+                <intent-filter>
+                    <action android:name="android.intent.action.VIEW"/>
+                    <category android:name="android.intent.category.DEFAULT"/>
+                    <data android:scheme="$APPID"/>
+                </intent-filter>
+            </activity>
+        </config-file>
+
+        <source-file src="src/android/libs/libammsdk.jar" target-dir="libs"/>
+        <source-file src="src/android/Wechat.java" target-dir="src/com/taiemao"/>
+        <source-file src="src/android/EntryActivity.java" target-dir="src/com/taiemao/wxapi"/>
+        <source-file src="src/android/WXPayEntryActivity.java" target-dir="src/com/taiemao/wxapi"/>
+        <source-file src="src/android/PayResult.java" target-dir="src/com/taiemao/wxapi"/>
+    </platform>
+</plugin>
