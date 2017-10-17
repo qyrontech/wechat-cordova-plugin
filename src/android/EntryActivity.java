@@ -45,34 +45,6 @@ public class EntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onResp(BaseResp resp) {
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        Log.i(Wechat.TAG, String.valueOf(resp.errCode));
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        if (resp.errStr != null) {
-            Log.i(Wechat.TAG, resp.errStr);
-        } else {
-            Log.i(Wechat.TAG + "resp.errStr", "null");
-        }
-
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        if (resp.transaction != null) {
-            Log.i(Wechat.TAG, resp.transaction);
-        } else {
-            Log.i(Wechat.TAG + "resp.transaction", "null");
-        }
-
-        Log.i(Wechat.TAG, "<<----------------------->>");
-        if (resp.openId != null) {
-            Log.i(Wechat.TAG, resp.openId);
-        } else {
-            Log.i(Wechat.TAG + "resp.openId", "null");
-        }
-
         CallbackContext ctx = Wechat.getCurrentCallbackContext();
 
         if (ctx == null) {

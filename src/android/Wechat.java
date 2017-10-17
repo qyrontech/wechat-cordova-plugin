@@ -52,15 +52,9 @@ public class Wechat extends CordovaPlugin {
     @Override
     public void initialize(CordovaInterface cordova, CordovaWebView webView) {
 
-        Log.i(TAG, ":<<<------------------------------------>>>");
-        Log.i(TAG, ":<<<------------------------------------>>>");
-        Log.i(TAG, ":<<<------------------------------------>>>");
-
         super.initialize(cordova, webView);
 
         appId = webView.getPreferences().getString("APPID", "");
-
-        Log.i(TAG + "appId: ", appId);
 
         // save app id
         saveAppId(cordova.getActivity(), appId);
@@ -68,7 +62,6 @@ public class Wechat extends CordovaPlugin {
         // init api
         initWXAPI();
 
-        Log.i(TAG, "plugin initialized.");
     }
 
 
@@ -77,9 +70,6 @@ public class Wechat extends CordovaPlugin {
 
         if (api != null) {
             api.registerApp(getAppId());
-            Log.i(TAG, ":<<<--------api register------------>>>");
-        } else {
-            Log.i(TAG, ":<<<--------api not register------------>>>");
         }
     }
 
@@ -102,8 +92,6 @@ public class Wechat extends CordovaPlugin {
 
     @Override
     public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
-        Log.d(TAG, String.format("%s is called. Callback ID: %s.", action, callbackContext.getCallbackId()));
-
         return pay(args, callbackContext);
     }
 
@@ -132,30 +120,17 @@ public class Wechat extends CordovaPlugin {
             req.sign = params.getString("sign");
             req.packageValue = "Sign=WXPay";
 
-            Log.i(TAG + "partnerId", req.partnerId);
-            Log.i(TAG + "prepayId", req.prepayId);
-            Log.i(TAG + "nonceStr", req.nonceStr);
-            Log.i(TAG + "timeStamp", req.timeStamp);
-            Log.i(TAG + "partnerId", req.partnerId);
-            Log.i(TAG + "sign", req.sign);
-            Log.i(TAG + "packageValue", req.packageValue);
-
         } catch (Exception e) {
             e.printStackTrace();
-            Log.e(TAG, e.getMessage());
 
             callbackContext.error(new PayResult(ERROR_INVALID_PARAMETERS_CODE, ERROR_INVALID_PARAMETERS).toJson());
             return true;
         }
 
         if (api.sendReq(req)) {
-            Log.i(TAG, "Payment request has been sent successfully.");
-
             // send no result
             sendNoResultPluginResult(callbackContext);
         } else {
-            Log.i(TAG, "Payment request has been sent unsuccessfully.");
-
             // send error
             callbackContext.error(new PayResult(ERROR_SEND_REQUEST_FAILED_CODE, ERROR_SEND_REQUEST_FAILED).toJson());
         }

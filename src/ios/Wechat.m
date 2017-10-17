@@ -19,15 +19,11 @@
 #pragma mark "API"
 - (void)pluginInitialize {
 
-  NSLog(@"-------------cordova-plugin-wechat has been initialized-------------");
-
   NSString* appId = [[self.commandDelegate settings] objectForKey:@"appid"];
   if (appId){
     self.wechatAppId = appId;
     [WXApi registerApp: appId];
   }
-
-  NSLog(@"cordova-plugin-wechat has been initialized. Wechat SDK Version: %@. APP_ID: %@.", [WXApi getApiVersion], appId);
 }
 
 
@@ -60,13 +56,6 @@
   req.nonceStr = [params objectForKey:requiredParams[3]];
   req.package = @"Sign=WXPay";
   req.sign = [params objectForKey:requiredParams[4]];
-
-  NSLog(@"partnerId = %@", req.partnerId);
-  NSLog(@"prepayId = %@", req.prepayId);
-  NSLog(@"nonceStr = %@", req.nonceStr);
-  NSLog(@"package = %@", req.package);
-  NSLog(@"sign = %@", req.sign);
-
 
   if ([WXApi sendReq:req]) {
     // save the callback id
@@ -116,8 +105,6 @@
     default:
         response = @{@"resultStatus":[NSString stringWithFormat:@"%d",-9], @"result":@"未知错误"};
   }
-
-  NSLog(@"response = %@", response);
 
   if (success) {
     [self successWithCallbackID:self.currentCallbackId messageAsDictionary:response];
