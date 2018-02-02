@@ -1,9 +1,9 @@
 {
-  "name": "cordova-plugin-wechat",
+  "name": "cordova-plugin-wechat-share",
   "version": "1.0.0",
   "description": "wechat pay cordova plugin",
   "cordova": {
-    "id": "cordova-plugin-wechat",
+    "id": "cordova-plugin-wechat-share",
     "platforms": [
       "ios",
       "android"
