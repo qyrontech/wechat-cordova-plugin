@@ -14,7 +14,7 @@ import org.apache.cordova.CallbackContext;
 
 import com.taiemao.Wechat;
 
-public class EntryActivity extends Activity implements IWXAPIEventHandler {
+public class RontechEntryActivity extends Activity implements IWXAPIEventHandler {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
